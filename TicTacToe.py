@@ -10,3 +10,14 @@ t : play with the Terminal""")
 
 if __name__ == "__main__":
     print("Hello, world!")
+    
+    if len(argv) !=2:
+        usage()
+    elif argv[1]=="t":
+        ui = Terminal()
+    elif argv[1]=="g":
+        ui = GUI()
+    else:
+        usage()
+    
+    ui.run()
