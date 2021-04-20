@@ -1,4 +1,4 @@
-
+from itertools import product
 class Game:
 
     P1 = 'o'
@@ -25,7 +25,15 @@ class Game:
         col -= 1
         self._board[row][col] = self._player
         self._player = Game.P2 if self._player is Game.P1 else Game.P1
-    
+    def squares_free(self):
+        
+        empty = 0
+        for sq in product(range(3), range(3)):
+            if self._board[sq[0]][sq[1]]==Game._EMPTY:
+                empty += 1
+        return empty
+            
+            
     @property
     def winner(self):
         for p in [Game.P1,Game.P2]:
