@@ -10,6 +10,8 @@ class Game:
         self._board = [[Game._EMPTY for _ in range(Game._DIM)] for _ in range(Game._DIM)]
         self._player = Game.P1
 
+    def at(self, row, col):
+        return self._board[row-1][col-1]
     def __repr__(self):
         result = "  " + " ".join(str(i+1) for i in range(Game._DIM))
         for row in range(Game._DIM):
