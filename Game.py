@@ -1,10 +1,13 @@
 from itertools import product
+class GameError(Exception):
+    pass
 class Game:
 
     P1 = 'o'
     P2 = 'x'
     _EMPTY = ' '
     _DIM = 3
+    DRAW = "d"
 
     def __init__(self):
         self._board = [[Game._EMPTY for _ in range(Game._DIM)] for _ in range(Game._DIM)]
@@ -25,8 +28,11 @@ class Game:
     def play(self,row,col):
         row -= 1
         col -= 1
-        self._board[row][col] = self._player
-        self._player = Game.P2 if self._player is Game.P1 else Game.P1
+        if self._board[row][col]==Game._EMPTY:
+            self._board[row][col] = self._player
+            self._player = Game.P2 if self._player is Game.P1 else Game.P1
+        else:
+            raise GameError("Can't play here")
     def squares_free(self):
         
         empty = 0
@@ -49,7 +55,7 @@ class Game:
                 return p
             if all(self._board[i][Game._DIM - 1 - i] is p for i in range(Game._DIM)):
                 return p
-        return None
+        return Game.DRAW if self.squares_free==0 else None
 
 if __name__ == "__main__":
     g = Game()
